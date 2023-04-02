@@ -1,0 +1,8 @@
+- hosts: linodes
+  tasks:
+    - name: Clone Git repository
+      git:
+        repo: git@example.com:user/repo.git
+        dest: /path/to/destination
+        version: master
+      become: yes
