@@ -1,0 +1,64 @@
+
+- hosts: linodes
+  become: yes
+  tasks:
+    - name: Install Docker dependencies
+      apt:
+        name: apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: Install Docker and Docker Compose
+      apt:
+        name: 
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Install Git, net-tools, OpenSSH server, Python3, g++, make, Python3-pip, Node.js, and tmux
+      apt:
+        name:
+          - git
+          - net-tools
+          - openssh-server
+          - python3
+          - g++
+          - make
+          - python3-pip
+          - nodejs
+          - tmux
+        state: present
+
+    - name: Clone config repository
+      git:
+        repo: git@example.com:user/config-repo.git
+        dest: /home/username/config
+        version: master
+
+    - name: Copy zsh configuration file
+      copy:
+        src: ./config/.zshrc
+        dest: ~/.zshrc
+
+    - name: Configure tmux
+      copy:
+        src: /home/username/config/.tmux.conf
+        dest: /home/username/.tmux.conf
+
+    - name: Copy Git configuration file
+      copy:
+        src: /home/username/config/.gitconfig
+        dest: /home/username/.gitconfig
+
+    - name: Restart zsh
+      shell: exec zsh

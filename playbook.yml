@@ -2,7 +2,30 @@
   tasks:
     - name: Clone Git repository
       git:
-        repo: git@example.com:user/repo.git
-        dest: /path/to/destination
+        repo: git@github.com:Cdaprod/ansiblePull.git
+        dest: ~/.ansiblePull/.
         version: master
       become: yes
+      
+- hosts: linodes
+  become: yes
+  tasks:
+    - name: Install zsh
+      apt:
+        name: zsh
+        state: present
+
+    - name: Clone p10k Git repository
+      git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: /home/username/.oh-my-zsh/custom/themes/powerlevel10k
+        version: master
+
+    - name: Configure zsh theme
+      lineinfile:
+        path: /home/username/.zshrc
+        line: ZSH_THEME="powerlevel10k/powerlevel10k"
+        state: present
+
+    - name: Restart zsh
+      shell: exec zsh

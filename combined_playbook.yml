@@ -1,0 +1,11 @@
+- hosts: linodes
+  become: yes
+  tasks:
+    - name: Install packages
+      include_tasks: apt_packages_tasks.yml
+
+    - name: Install zsh and p10k
+      include_tasks: zsh_p10k_tasks.yml
+
+    - name: Full setup
+      include_tasks: full_setup_tasks.yml

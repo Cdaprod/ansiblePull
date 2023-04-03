@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Install zsh and p10k
+      include_tasks: tasks/zsh_p10k_tasks.yml
+
+    - name: Full setup
+      include_tasks: tasks/full_setup_tasks.yml

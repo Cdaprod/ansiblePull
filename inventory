@@ -1,2 +1,2 @@
 [linodes]
-170.187.159.12 ansible_user=cda ansible_ssh_private_key_file=~/.ssh/.
+170.187.159.12 ansible_user=cda ansible_ssh_private_key_file=~/.ssh/authorized_keys
